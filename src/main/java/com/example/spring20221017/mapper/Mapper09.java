@@ -1,6 +1,8 @@
 package com.example.spring20221017.mapper;
 
 import com.example.spring20221017.domain.JavaBean04;
+import com.example.spring20221017.domain.JavaBean16;
+import com.example.spring20221017.domain.JavaBean17;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,4 +16,5 @@ public interface Mapper09 {
     String getContactName(JavaBean04 bean1);
 
     String getSupplierContactName(JavaBean04 bean2);
+    List<String> getProductName(JavaBean16 arg1, JavaBean17 arg2);
 }

@@ -14,7 +14,7 @@
     <select id="getEmployeeFirstNameById" resultType="string">
         SELECT FirstName
         FROM Employees
-        WHERE EmployeeID = #{id}
+        WHERE EmployeeID = #{id}02
     </select>
 
     <select id="getCustomerNameByCityAndCountry" resultType="string">
@@ -39,5 +39,10 @@
         SELECT ContactName
         FROM Suppliers
         WHERE SupplierName = #{name} AND Country = #{country}
+    </select>
+    <select id="getProductName" resultType="string">
+        SELECT ProductName
+        FROM Products
+        WHERE CategoryID = #{arg1.categoryId} AND Price >= #{arg2.price}
     </select>
 </mapper>

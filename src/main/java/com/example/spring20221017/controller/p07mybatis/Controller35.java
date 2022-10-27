@@ -1,6 +1,8 @@
 package com.example.spring20221017.controller.p07mybatis;
 
 import com.example.spring20221017.domain.JavaBean04;
+import com.example.spring20221017.domain.JavaBean16;
+import com.example.spring20221017.domain.JavaBean17;
 import com.example.spring20221017.mapper.Mapper09;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,5 +64,12 @@ public class Controller35 {
     public void method06(JavaBean04 b) {
         String c = mapper.getSupplierContactName(b);
         System.out.println(c);
+    }
+
+    @RequestMapping("sub07")
+    public void method07(JavaBean16 p1, JavaBean17 p2) {
+
+        List<String> list = mapper.getProductName(p1, p2);
+        list.forEach(System.out::println);
     }
 }
