@@ -11,6 +11,11 @@
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+<c:if test="${not empty message}">
+    <div>
+            ${message}
+    </div>
+</c:if>
 <h1>공급자 정보 입력하기</h1>
 <form action="" method="post">
   <input type="text" placeholder="이름" value="limdara" name="supplierName"> <br>
