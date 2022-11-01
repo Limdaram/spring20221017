@@ -14,4 +14,9 @@ public interface BoardMapper {
     int update(BoardDto board);
 
     int delete(int id);
+
+    List<BoardDto> list(int offset, int records, String type, String keyword);
+
+    int countAll(String type, String keyword);
+
 }

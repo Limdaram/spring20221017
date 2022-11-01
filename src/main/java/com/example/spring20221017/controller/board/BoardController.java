@@ -1,6 +1,7 @@
 package com.example.spring20221017.controller.board;
 
 import com.example.spring20221017.domain.board.BoardDto;
+import com.example.spring20221017.domain.board.PageInfo;
 import com.example.spring20221017.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,10 +44,14 @@ public class BoardController {
     }
 
     @GetMapping("list")
-    public void list(Model model) {
+    public void list(@RequestParam(name = "page", defaultValue = "1") int page,
+                     @RequestParam(name = "t", defaultValue="all") String type,
+                     @RequestParam(name= "q", defaultValue = "") String keyword,
+                     PageInfo pageInfo,
+                     Model model) {
         // request param 수집
         // busines logic
-        List<BoardDto> list = service.listBoard();
+        List<BoardDto> list = service.listBoard(page, type, keyword, pageInfo);
         // add attribute
         model.addAttribute("boardList", list);
         // forward

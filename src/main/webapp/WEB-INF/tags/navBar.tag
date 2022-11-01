@@ -1,6 +1,13 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="active" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+    #searchTypeSelect {
+        width : auto;
+    }
+</style>
+
 <c:url value="/board/list" var="listLink" />
 <c:url value="/board/register" var="registerLink" />
 
@@ -22,9 +29,17 @@
                     <a class="nav-link ${active eq 'register' ? 'active' : ''}" href="${registerLink}">작성</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form action="${listLink}" class="d-flex" role="search">
+                <select name="t" id="searchTypeSelect" class="form-select">
+                    <option value="all">전체</option>
+                    <option value="title" ${param.t == 'title' ? 'selected' : ''}>제목</option>
+                    <option value="content" ${param.t == 'content' ? 'selected' : ''}>본문</option>
+                    <option value="writer" ${param.t == 'writer' ? 'selected' : ''}>작성자</option>
+                </select>
+                <input value="${param.q}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                </button>
             </form>
         </div>
     </div>
