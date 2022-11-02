@@ -56,7 +56,6 @@
         fetch(ctx + "/ex40/sub02", {method : "get"});
     });
     document.querySelector("#btn3").addEventListener("click", function () {
-        // fetch 두번째 파라미터는 option (object)
         fetch(ctx + "/ex40/sub03", {method : "post"});
     });
     document.querySelector("#btn4").addEventListener("click", function () {
