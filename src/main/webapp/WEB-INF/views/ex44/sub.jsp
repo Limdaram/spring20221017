@@ -20,6 +20,68 @@
 <button id="btn2">/ex44/sub02 post 요청 + data text/plain</button>
 <br>
 <button id="btn3">/ex44/sub03 post 요청 + data application/json</button>
+<br>
+<button id="btn4">/ex44/sub04 post 요청 + data application/json</button>
+<br>
+<button id="btn5">/ex44/sub05 post 요청 + data application/json</button>
+<br>
+<button id="btn6">/ex44/sub06 post 요청 + data application/json</button>
+<br>
+<button id="btn7">/ex44/sub07 post 요청 + data application/json</button>
+<br>
+<button id="btn8">/ex44/sub03 post 요청 obj -> json</button>
+<br>
+<button id="btn9">/ex44/sub05 post 요청 obj -> json</button>
+<br>
+<button id="btn10">/ex44/sub04 post 요청 obj -> json</button>
+<br>
+<hr>
+<form action="" id="form1">
+    name <input type="text" name="name" id="nameInput1"> <br>
+    address <input type="text" name="address" id="addressInput1">
+</form>
+<button id="btn11">/ex44/sub03 post 요청 form -> obj -> json</button>
+<br>
+<hr>
+<form action="" id="form2">
+    name <input type="text" id="nameInput2"> <br>
+    location <input type="text" id="locationInput2"> <br>
+    since <input type="text" id="sinceInput2">
+</form>
+<button id="btn12">/ex44/sub06 post 요청 form -> obj -> json</button>
+<hr>
+<form action="">
+    age <input type="text" name="age" id="ageInput3"><br>
+    name <input type="text" name="name" id="nameInput3"><br>
+    hasCar <input type="checkbox" name="hasCar" id="hasCarCheckBox3"><br>
+    food : 피자 <input type="checkbox" name="food" class="foodCheckBox3" value="피자"><br>
+    food : 햄버거 <input type="checkbox" name="food" class="foodCheckBox3" value="햄버거"><br>
+    food : 치킨 <input type="checkbox" name="food" class="foodCheckBox3" value="치킨"><br>
+</form>
+<button id="btn13">/ex44/sub04 post 요청 form -> obj -> json</button>
+<br>
+<hr>
+<form action="">
+    <input type="text" id="nameInput14"> <br>
+    <input type="date" id="dateInput14"> <br>
+    <input type="datetime-local" id="dateTimeInput14">
+</form>
+<button id="btn14">/ex44/sub14 post 요청 json + 날짜(date)</button>
+<br>
+<hr>
+<%-- path variable --%>
+<form action="">
+    <input type="text" id="input15">
+</form>
+<button id="btn15">/ex44/sub15 get</button>
+<hr>
+<form action="">
+    <input type="text" id="input16">
+</form>
+<button id="btn16">/ex44/sub16 get</button>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
@@ -48,6 +110,182 @@
           body : '{"name":"limdaram", "address":"gangnam"}'
       });
   });
+  document.querySelector("#btn4").addEventListener("click", function() {
+      fetch(ctx + "/ex44/sub04", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          // string, boolean, integer, 배열, 객체, null이 들어올 수 있다
+          body : '{"name":"daraming", "hasCar":true, "food":["icecream","coffee","cheese"], "age":26}'
+      });
+  });
+  document.querySelector("#btn5").addEventListener("click", function() {
+      fetch(ctx + "/ex44/sub05", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          // string, boolean, integer, 배열, 객체, null이 들어올 수 있다
+          body : '{"address":"seoul", "score":95.8, "phone":["apple","samsung","blackberry"], "married":false}'
+      });
+  });
+  document.querySelector("#btn6").addEventListener("click", function() {
+      fetch(ctx + "/ex44/sub06", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          // 객체 type
+          body : '{"name":"LDR", "job":{"location" : "london", "since" : "2019년"}}'
+      });
+  });
+  document.querySelector("#btn7").addEventListener("click", function() {
+      fetch(ctx + "/ex44/sub07", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : '{"age":4, "info":{"address" : ["swiss", "seoul"], "married" : false}}'
+      });
+  });
+  document.querySelector("#btn8").addEventListener("click", function() {
+      const o = {name:"daram", address:"seoul"};
+      const data = JSON.stringify(o);
+
+      fetch(ctx + "/ex44/sub03", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn9").addEventListener("click", function() {
+      const data = JSON.stringify({
+          address:"seoul",
+          score:97.4,
+          phone:["apple", "samsung"],
+          married:false
+      });
+
+      fetch(ctx + "/ex44/sub05", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn10").addEventListener("click", function() {
+      const data = JSON.stringify({
+          name:"limdaraming",
+          age:4,
+          food:["coffee", "cake"],
+          hasCar:true
+      });
+
+      fetch(ctx + "/ex44/sub04", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn11").addEventListener("click", function() {
+      const name = document.querySelector("#nameInput1").value;
+      const address = document.querySelector("#addressInput1").value;
+      const data = JSON.stringify({
+          name : name,
+          address : address
+      });
+
+      fetch(ctx + "/ex44/sub03", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn12").addEventListener("click", function() {
+      const name = document.querySelector("#nameInput2").value;
+      const location = document.querySelector("#locationInput2").value;
+      const since = document.querySelector("#sinceInput2").value;
+      const data = JSON.stringify({
+          name : name,
+          job : {
+              location  : location,
+              since : since
+          }
+      });
+
+      fetch(ctx + "/ex44/sub06", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn13").addEventListener("click", function() {
+
+      const age = document.querySelector("#ageInput3").value;
+      const name = document.querySelector("#nameInput3").value;
+      const hasCarCheckBox = document.querySelector("#hasCarCheckBox3:checked");
+      const hasCar = hasCarCheckBox !=  null;
+      const foodCheckBoxs = document.querySelectorAll(".foodCheckBox3:checked");
+      const food = [];
+
+      // for (let i=0; i<foodCheckBoxs.length; i++) {
+      //     food.push(foodCheckBoxs[i].value);
+      // }
+
+      for (const foodCheckBox of foodCheckBoxs) {
+          food.push(foodCheckBox.value)
+      }
+      // const obj = {
+      //     age : age,
+      //     name : name,
+      //     hasCar : hasCar,
+      //     food : food
+      // };
+      const obj = {age, name, hasCar, food};
+
+      const data = JSON.stringify(obj);
+      fetch(ctx + "/ex44/sub04", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : data
+      });
+  });
+  document.querySelector("#btn14").addEventListener("click", function() {
+      const name = document.querySelector("#nameInput14").value;
+      const date = document.querySelector("#dateInput14").value;
+      const dateTime = document.querySelector("#dateTimeInput14").value;
+
+      const obj = {name, date, dateTime};
+
+      fetch(ctx + "/ex44/sub14", {
+          method: "post",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+          body : JSON.stringify(obj)
+      });
+  });
+  document.querySelector("#btn15").addEventListener("click", function() {
+      const data = document.querySelector("#input15").value;
+      fetch(ctx + "/ex44/sub15" + "/" + data)
+
+  });
+  document.querySelector("#btn16").addEventListener("click", function() {
+      const d = document.querySelector("#input16").value;
+      fetch(ctx + "/ex44/sub16" + "/" + d)
+  })
 </script>
 </body>
 </html>
