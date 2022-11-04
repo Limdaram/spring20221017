@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.swing.*;
 import java.beans.JavaBean;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -120,5 +123,45 @@ public class Controller45 {
         data.setDateTime(LocalDateTime.now());
 
         return data;
+    }
+    @GetMapping("sub13")
+    @ResponseBody
+    public Map<String, String> method13() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("address", "seoul");
+        map.put("email", "daram@gmail.com");
+        map.put("age", "26");
+        return map;
+    }
+    @GetMapping("sub14")
+    @ResponseBody
+    public Map<String, Object> method14 () {
+        Map<String, Object> map = new HashMap<>();
+        JavaBean25 data = new JavaBean25();
+        JavaBean26 sub = new JavaBean26();
+
+        sub.setAddress(List.of("제주", "울릉도"));
+        sub.setMarried(false);
+
+        data.setAge(4);
+        data.setInfo(sub);
+
+        map.put("address", "인천");
+        map.put("age", 26);
+        map.put("married", true);
+        map.put("data", data);
+
+        return map;
+    }
+    @GetMapping("sub15")
+    @ResponseBody
+    public Map<String, Object> method15() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("car","tesla");
+        map.put("model","avante");
+        map.put("color",List.of("blue", "red"));
+
+        return map;
     }
 }
