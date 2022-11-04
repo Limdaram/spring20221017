@@ -2,13 +2,11 @@ package com.example.spring20221017.controller.p09fetch;
 
 import com.example.spring20221017.domain.JavaBean18;
 import com.example.spring20221017.domain.JavaBean19;
+import com.example.spring20221017.mapper.Mapper10;
 import com.example.spring20221017.mapper.Mapper11;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +18,9 @@ public class Controller47 {
 
     @Autowired
     private Mapper11 mapper;
+
+    @Autowired
+    private Mapper10 mapper1;
 
     @RequestMapping("sub")
     public void method() {
@@ -70,4 +71,99 @@ public class Controller47 {
         }
         return map;
     }
+    @GetMapping("sub09/{id}")
+    @ResponseBody
+    public Map<String, Object> method9(@PathVariable int id) {
+        Map<String, Object> map = new HashMap<>();
+        JavaBean19 supplier = mapper.getSupplierById(id);
+
+        if (supplier != null) {
+            map.put("supplier", supplier);
+            map.put("message", "조회 완료되었습니다.");
+        } else {
+            map.put("message", "조회되지 않았습니다.");
+        }
+        return map;
+    }
+    @PutMapping("sub10")
+    @ResponseBody
+    public Map<String, String> method10 (@RequestBody JavaBean18 customer) {
+        Map<String, String> map = new HashMap<>();
+        int cnt = mapper.updateCustomer(customer);
+        if(cnt == 1) {
+            map.put("message", customer.getId() + "번 고객정보가 변경되었습니다.");
+        } else {
+            map.put("message", customer.getId() + "번 고객정보가 변경되지 않았습니다.");
+
+        }
+        return map;
+    }
+    @PutMapping("sub11")
+    @ResponseBody
+    public Map<String, Object> method11 (@RequestBody JavaBean19 supplier) {
+        Map<String, Object> map = new HashMap<>();
+        int cnt = mapper.updateSupplier(supplier);
+        if(cnt == 1) {
+            map.put("message", supplier.getId() + "번 공급자정보가 변경되었습니다.");
+        } else {
+            map.put("message", supplier.getId() + "번 공급자정보가 변경되지 않았습니다.");
+
+        }
+        return map;
+    }
+    @PostMapping("sub12")
+    @ResponseBody
+    public Map<String, Object> method12 (@RequestBody JavaBean18 customer) {
+        Map<String, Object> map = new HashMap<>();
+        int cnt = mapper1.insertCustomer(customer);
+        if(cnt == 1) {
+            map.put("message", customer.getId() + "번 고객정보가 추가되었습니다.");
+        } else {
+            map.put("message", customer.getId() + "번 고객정보가 추가되지 않았습니다.");
+
+        }
+        return map;
+    }
+    @PostMapping("sub13")
+    @ResponseBody
+    public Map<String, Object> method13 (@RequestBody JavaBean19 supplier) {
+        Map<String, Object> map = new HashMap<>();
+        int cnt = mapper1.insertSupplier(supplier);
+        if(cnt == 1) {
+            map.put("message", supplier.getId() + "번 공급자정보가 추가되었습니다.");
+        } else {
+            map.put("message", supplier.getId() + "번 공급자정보가 추가되지 않았습니다.");
+
+        }
+        return map;
+    }
+    @DeleteMapping("sub14/{id}")
+    @ResponseBody
+    public Map<String, Object> method14 (@PathVariable int id) {
+        Map<String, Object> map = new HashMap<>();
+        int cnt = mapper1.removeCustomerById(id);
+        if(cnt == 1) {
+            map.put("message", id + "번 고객정보가 삭제되었습니다.");
+        } else {
+            map.put("message", id + "번 고객정보가 삭제되지 않았습니다.");
+
+        }
+        return map;
+    }
+    @DeleteMapping("sub15/{id}")
+    @ResponseBody
+    public Map<String, Object> method15 (@PathVariable int id) {
+        Map<String, Object> map = new HashMap<>();
+        int cnt = mapper1.removeCustomerById(id);
+        if(cnt == 1) {
+            map.put("message", id + "번 고객정보가 삭제되었습니다.");
+        } else {
+            map.put("message", id + "번 고객정보가 삭제되지 않았습니다.");
+
+        }
+        return map;
+    }
+
+
+
 }
