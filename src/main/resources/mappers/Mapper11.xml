@@ -44,4 +44,18 @@
         SET balance = balance + (#{money})
         WHERE account = #{account}
     </update>
+
+    <select id="getCustomers" resultType="com.example.spring20221017.domain.JavaBean18">
+        SELECT CustomerId id, CustomerName name, ContactName, Address, City, PostalCode, Country
+        FROM Customers
+        ORDER BY CustomerID DESC
+        LIMIT 0, 10
+    </select>
+
+    <select id="getSuppliers" resultType="com.example.spring20221017.domain.JavaBean19">
+        SELECT SupplierId id, SupplierName, ContactName, Address, City, PostalCode, Country, Phone
+        FROM Suppliers
+        ORDER BY SupplierID DESC
+        LIMIT 0, 10
+    </select>
 </mapper>
