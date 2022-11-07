@@ -83,6 +83,9 @@
                 </div>
             </div>
 
+            <div id="replyMessage1">
+            </div>
+
             <div class="container-md">
                 <div class="row">
                     <div class="col">
@@ -93,16 +96,40 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <div id="replyListContainer">
+
+                    </div>
+                </div>
+            </div>
+
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
                     crossorigin="anonymous"></script>
             <script>
+                const ctx = "${pageContext.request.contextPath}";
+
+                listReply();
+                function listReply() {
+                    const boardId = document.querySelector("#boardId").value;
+                    fetch(`\${ctx}/reply/list/\${boardId}`)
+                        .then(res => res.json())
+                        .then(list => {
+                            const replyListContainer = document.querySelector("#replyListContainer");
+                            replyListContainer.innerHTML = "";
+
+                            for (const item of list) {
+                                // console.log(item.id);
+                                const replyDiv = `<div>\${item.content} : \${item.inserted}</div>`;
+                                document.querySelector("#replyListContainer").insertAdjacentHTML("beforeend", replyDiv);
+                            }
+                        });
+                }
                 document.querySelector("#removeConfirmButton").addEventListener("click", function() {
                     document.querySelector("#removeForm").submit();
                 })
-            </script>
-            <script>
-                const ctx = "${pageContext.request.contextPath}";
+
                 document.querySelector("#replySendButton1").addEventListener("click", function () {
                     const boardId = document.querySelector("#boardId").value;
                     const content = document.querySelector("#replyInput1").value;
@@ -117,7 +144,13 @@
                             "Content-Type": "application/json"
                         },
                         body : JSON.stringify(data)
-                    });
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            document.querySelector("#replyInput1").value = "";
+                            document.querySelector("#replyMessage1").innerText = data.message;
+                        })
+                        .then(() => listReply())
                 });
             </script>
         </div>

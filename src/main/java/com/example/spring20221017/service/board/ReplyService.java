@@ -5,6 +5,8 @@ import com.example.spring20221017.mapper.board.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReplyService {
     @Autowired
@@ -12,4 +14,8 @@ public class ReplyService {
     public int addReply(ReplyDto reply) {
         return mapper.insert(reply);
     }
- }
+
+    public List<ReplyDto> listReplyByBoard(int boardId) {
+        return mapper.selectReplyByBoardId(boardId);
+    }
+}

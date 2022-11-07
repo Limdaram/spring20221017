@@ -7,4 +7,18 @@
         INSERT INTO Reply (boardId, content)
         VALUES (#{boardId}, #{content})
     </insert>
+
+    <select id="selectReplyByBoardId" resultType="com.example.spring20221017.domain.board.ReplyDto">
+        SELECT
+            id,
+            boardId,
+            content,
+            inserted
+        FROM
+            Reply
+        WHERE
+            boardId = #{boardId}
+        ORDER BY
+            id DESC
+    </select>
 </mapper>
