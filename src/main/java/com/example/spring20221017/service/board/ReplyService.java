@@ -15,11 +15,19 @@ public class ReplyService {
         return mapper.insert(reply);
     }
 
-    public List<ReplyDto> listReplyByBoard(int boardId) {
+    public List<ReplyDto> listReplyByBoardId(int boardId) {
         return mapper.selectReplyByBoardId(boardId);
     }
 
     public int removeById(int id) {
         return mapper.deleteById(id);
+    }
+
+    public ReplyDto getById(int id) {
+        return mapper.selectById(id);
+    }
+
+    public int modify(ReplyDto reply) {
+        return mapper.update(reply);
     }
 }
