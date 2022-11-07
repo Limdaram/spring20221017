@@ -18,4 +18,8 @@ public class ReplyService {
     public List<ReplyDto> listReplyByBoard(int boardId) {
         return mapper.selectReplyByBoardId(boardId);
     }
+
+    public int removeById(int id) {
+        return mapper.deleteById(id);
+    }
 }
