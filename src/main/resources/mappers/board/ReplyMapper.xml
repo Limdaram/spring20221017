@@ -48,4 +48,10 @@
             id = #{id}
     </update>
 
+    <delete id="deleteByBoardId">
+        DELETE FROM Reply
+        WHERE boardId = #{id}
+    </delete>
+
+
 </mapper>
