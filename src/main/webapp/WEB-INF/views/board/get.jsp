@@ -33,6 +33,16 @@
                 </label>
                 <textarea class="form-control" readonly>${board.content}</textarea>
             </div>
+            
+            <%-- 이미지 출력 --%>
+            <div>
+                <c:forEach items="${board.fileName}" var="name">
+                    <div>
+                        <img class="img-fluid img-thumbnail" src="/image/${board.id}/${name}" alt="">
+                    </div>
+                </c:forEach>
+
+            </div>
 
             <div class="mb-3">
                 <label class="form-label">
@@ -52,10 +62,10 @@
 </div>
 
 <br>
+
 <c:url value="/board/modify" var="modifyLink">
     <c:param name="id" value="${board.id}"></c:param>
 </c:url>
-<a class = "btn btn-warning" href="${modifyLink}">수정하기</a>
 
 <c:url value="/board/remove" var="removeLink">
     <c:param name="id" value="${board.id}"></c:param>
@@ -64,7 +74,10 @@
 <form id="removeForm" action="${removeLink }" method="post">
     <input type="hidden" name="id" value="${board.id }">
 </form>
+<div>
+    <a class = "btn btn-warning " href="${modifyLink}">수정하기</a>
     <input class="btn btn-warning" type="submit" value="삭제하기" data-bs-toggle="modal" data-bs-target="#removeModal">
+</div>
 <%--<a class = "btn btn-warning" href="${removeLink}">삭제하기</a>--%>
 
 <!-- Modal -->
@@ -227,8 +240,9 @@
                                 <div>
                                     \${item.content}
                                 </div>
-                                    <small>
-                                        \${item.inserted}
+                                    <small class="text-muted">
+								        <i class="fa-regular fa-clock"></i>
+                                        \${item.ago}
                                     </small>
                             </div>
                             <div>

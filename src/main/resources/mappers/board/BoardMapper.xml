@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.spring20221017.mapper.board.BoardMapper">
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Board (title, writer, content)
         VALUES (#{title}, #{writer}, #{content})
     </insert>
@@ -52,18 +52,31 @@
             </trim>
     </select>
 
-    <select id="select" resultType="com.example.spring20221017.domain.board.BoardDto">
+    <select id="select" resultMap="boardMap">
         SELECT
-            id,
-            title,
-            content,
-            writer,
-            inserted
+            b.id,
+            b.title,
+            b.content,
+            b.writer,
+            b.inserted,
+            f.id fileId,
+            f.name fileName
         FROM
-            Board
+            Board b LEFT JOIN File f ON b.id = f.boardId
         WHERE
-            id = #{id}
+            b.id = #{id}
     </select>
+
+    <resultMap id="boardMap" type="com.example.spring20221017.domain.board.BoardDto">
+        <id column="id" property="id"></id>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="writer" property="writer"></result>
+        <result column="inserted" property="inserted"></result>
+        <collection property="fileName" ofType="string">
+            <result property="fileName" column="fileName"></result>
+        </collection>
+    </resultMap>
 
     <update id="update">
         UPDATE Board
@@ -78,4 +91,9 @@
         DELETE FROM Board
         WHERE id = #{id}
     </delete>
+
+    <insert id="insertFile">
+        INSERT INTO File (boardId, name)
+        VALUES (#{id}, #{fileName})
+    </insert>
 </mapper>

@@ -7,7 +7,9 @@ import com.example.spring20221017.mapper.board.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -18,8 +20,34 @@ public class BoardService {
 
     @Autowired
     private ReplyMapper replyMapper;
-    public int register(BoardDto board) {
-        return boardMapper.insert(board);
+
+    public int register(BoardDto board, MultipartFile[] files) {
+        // db에 게시물 정보 저장
+        int cnt = boardMapper.insert(board);
+
+        for (MultipartFile file : files) {
+            if (file != null && file.getSize() > 0) {
+                // db에 파일 정보 저장
+                boardMapper.insertFile(board.getId(), file.getOriginalFilename());
+
+                // 파일 저장
+                // board id 이름의 새폴더 만들기
+                File folder = new File("C:\\Users\\user\\Desktop\\study\\upload\\prj1\\board\\" + board.getId());
+                folder.mkdirs();
+
+                File dest = new File(folder, file.getOriginalFilename());
+
+                try {
+                    file.transferTo(dest);
+                } catch (Exception e) {
+                    // @Transactional은 RuntimeException에서만 rollback 됨
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        return cnt;
     }
 
     public List<BoardDto> listBoard(int page, String type, String keyword, PageInfo pageInfo) {
