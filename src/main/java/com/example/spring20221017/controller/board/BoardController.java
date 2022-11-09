@@ -75,6 +75,7 @@ public class BoardController {
         // request param
         // business logic (게시물 db에서 가져오기)
         BoardDto board = service.get(id);
+        // System.out.println(board);
         // add attribute
         model.addAttribute("board", board);
         // forward / redirect
@@ -87,8 +88,28 @@ public class BoardController {
     }
 
     @PostMapping("modify")
-    public String modify(BoardDto board, RedirectAttributes rttr) {
-        int cnt = service.update(board);
+    public String modify(
+            BoardDto board,
+            @RequestParam("files") MultipartFile[] addFiles,
+            @RequestParam(name="removeFiles", required = false) List<String> removeFiles,
+            RedirectAttributes rttr) {
+
+//        if (files != null) {
+//            System.out.println(files.length);
+//            for (MultipartFile file : files) {
+//                System.out.println(file.getOriginalFilename());
+//            }
+//        }
+
+//        // 지울 파일명 들어오는 지 확인
+//        System.out.println("지울 파일명####");
+//        if (removeFiles != null) {
+//            for (String name : removeFiles) {
+//                System.out.println(name);
+//            }
+//        }
+
+        int cnt = service.update(board, addFiles, removeFiles);
         if (cnt == 1) {
             rttr.addFlashAttribute("message", board.getId() + "번 게시물을 수정하였습니다.");
         } else {

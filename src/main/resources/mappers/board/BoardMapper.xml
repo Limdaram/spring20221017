@@ -3,18 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.spring20221017.mapper.board.BoardMapper">
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Board (title, writer, content)
         VALUES (#{title}, #{writer}, #{content})
     </insert>
+
     <select id="list" resultType="com.example.spring20221017.domain.board.BoardDto">
         SELECT
             b.id,
             b.title,
             b.writer,
             b.inserted,
-            COUNT(r.id) countReply
+            COUNT(DISTINCT r.id) countReply,
+            COUNT(DISTINCT f.id) countFile
         FROM Board b LEFT JOIN Reply r ON b.id = r.boardId
+                    LEFT JOIN File f ON b.id = f.boardId
         WHERE
             <trim prefixOverrides="OR">
                 <if test="type == 'all' or type == 'title'">
@@ -60,9 +64,12 @@
             b.writer,
             b.inserted,
             f.id fileId,
-            f.name fileName
+            f.name fileName,
+            COUNT(DISTINCT r.id) countReply,
+            COUNT(DISTINCT f.id) countFile
         FROM
             Board b LEFT JOIN File f ON b.id = f.boardId
+                    LEFT JOIN Reply r ON b.id = r.boardId
         WHERE
             b.id = #{id}
     </select>
@@ -73,6 +80,8 @@
         <result column="content" property="content"></result>
         <result column="writer" property="writer"></result>
         <result column="inserted" property="inserted"></result>
+        <result column="countReply" property="countReply"></result>
+        <result column="countFile" property="countFile"></result>
         <collection property="fileName" ofType="string">
             <result property="fileName" column="fileName"></result>
         </collection>
@@ -96,4 +105,14 @@
         INSERT INTO File (boardId, name)
         VALUES (#{id}, #{fileName})
     </insert>
+
+    <delete id="deleteFileByBoardId">
+        DELETE FROM File
+        WHERE boardId = #{id}
+    </delete>
+
+    <delete id="deleteFileByBoardIdAndFileName">
+        DELETE FROM File
+        WHERE boardId = #{id} AND name = #{fileName}
+    </delete>
 </mapper>

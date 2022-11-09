@@ -68,15 +68,15 @@
 </c:url>
 
 <c:url value="/board/remove" var="removeLink">
-    <c:param name="id" value="${board.id}"></c:param>
+<%--    <c:param name="id" value="${board.id}"></c:param>--%>
 </c:url>
 
 <form id="removeForm" action="${removeLink }" method="post">
     <input type="hidden" name="id" value="${board.id }">
 </form>
-<div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
     <a class = "btn btn-warning " href="${modifyLink}">수정하기</a>
-    <input class="btn btn-warning" type="submit" value="삭제하기" data-bs-toggle="modal" data-bs-target="#removeModal">
+    <input class="btn btn-danger" type="submit" value="삭제하기" data-bs-toggle="modal" data-bs-target="#removeModal">
 </div>
 <%--<a class = "btn btn-warning" href="${removeLink}">삭제하기</a>--%>
 
@@ -165,6 +165,7 @@
             <div class="modal-body">
                 <input type="text" class="form-control" id="modifyReplyInput">
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" data-bs-dismiss="modal" id="modifyFormModalSubmitButton" class="btn btn-danger">수정</button>

@@ -21,26 +21,26 @@
         <div class="col">
 
             <h1>게시물 작성</h1>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form id="registerForm1" action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">
                         제목
                     </label>
-                    <input class="form-control" type="text" name="title">
+                    <input required="required" class="form-control" type="text" name="title">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">
                         작성자
                     </label>
-                    <input class="form-control" type="text" name="writer">
+                    <input required="required" class="form-control" type="text" name="writer">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">
                         본문
                     </label>
-                    <textarea class="form-control" name="content"></textarea>
+                    <textarea required="required" class="form-control" name="content"></textarea>
                 </div>
 
                 <div class="mb-3">
@@ -48,7 +48,7 @@
                     <input multiple type="file" accept="image/*" class="form-control" name="files">
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="등록">
+                <input id="submitButton1" class="btn btn-primary" type="submit" value="등록">
             </form>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
@@ -56,5 +56,29 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelector("#submitButton1").addEventListener("click", function (e) {
+        // submit 진행 중지
+        e.preventDefault();
+
+        // 제목 input에 입력한 값 가져와서 빈칸만 있는지 확인
+        let titleValue = document.querySelector(`#registerForm1 input[name="title"]`).value
+
+        // 본문 textarea에 입력한 값 가져와서 빈칸만 있는지 확인
+        let contentValue = document.querySelector(`#registerForm1 textarea[name="content"]`).value
+
+        // 작성자 input에 입력한 값 가져와서 빈칸만 있는지 확인
+        let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
+
+        // 위 테스트 다 통과하면 submit
+        if (titleValue.trim() !=""
+            && contentValue.trim() !=""
+            && writerValue.trim() !="") {
+            document.querySelector("#registerForm1").submit();
+        } else {
+            alert("내용을 입력해주세요");
+        }
+    });
+</script>
 </body>
 </html>
