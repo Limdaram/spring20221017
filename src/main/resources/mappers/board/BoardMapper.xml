@@ -64,12 +64,12 @@
             b.writer,
             b.inserted,
             f.id fileId,
-            f.name fileName,
-            COUNT(DISTINCT r.id) countReply,
-            COUNT(DISTINCT f.id) countFile
+            f.name fileName
+<!--            COUNT(DISTINCT r.id) countReply,-->
+<!--            COUNT(DISTINCT f.id) countFile-->
         FROM
             Board b LEFT JOIN File f ON b.id = f.boardId
-                    LEFT JOIN Reply r ON b.id = r.boardId
+<!--                    LEFT JOIN Reply r ON b.id = r.boardId-->
         WHERE
             b.id = #{id}
     </select>
@@ -80,8 +80,8 @@
         <result column="content" property="content"></result>
         <result column="writer" property="writer"></result>
         <result column="inserted" property="inserted"></result>
-        <result column="countReply" property="countReply"></result>
-        <result column="countFile" property="countFile"></result>
+<!--        <result column="countReply" property="countReply"></result>-->
+<!--        <result column="countFile" property="countFile"></result>-->
         <collection property="fileName" ofType="string">
             <result property="fileName" column="fileName"></result>
         </collection>

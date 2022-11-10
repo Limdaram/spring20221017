@@ -41,3 +41,4 @@ bin/
 ### Mac OS ###
 .DS_Storejdbc.properties
 jdbc.properties
+aws.properties

@@ -75,6 +75,7 @@ public class BoardController {
         // request param
         // business logic (게시물 db에서 가져오기)
         BoardDto board = service.get(id);
+        System.out.println(board);
         // System.out.println(board);
         // add attribute
         model.addAttribute("board", board);
