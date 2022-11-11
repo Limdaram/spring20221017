@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.spring20221017.mapper.lecture.Mapper07" >
+    <select id="getCategory" resultMap="categoryMap">
+        SELECT c.CategoryID, c.CategoryName, p.ProductName, p.Price
+        FROM Categories c JOIN Products p ON c.CategoryID = p.CategoryID
+        WHERE c.CategoryId = 7
+    </select>
+    <resultMap type="com.example.spring20221017.domain.lecture.JavaBean13" id="categoryMap">
+        <id column="categoryId" property="id"></id>
+        <result column="categoryName" property="name"/>
+        <collection property="product" ofType="com.example.spring20221017.domain.lecture.JavaBean14">
+            <id column="id" property="id"/>
+            <result column="productName" property="name" />
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+
+    <select id="getSupplier" resultMap="supplierMap">
+        SELECT
+        s.SupplierID,
+        s.SupplierName,
+        p.ProductID,
+        p.ProductName,
+        p.Price
+        FROM Products p JOIN Suppliers s ON p.SupplierID = s.SupplierID
+        WHERE s.SupplierID = 1
+    </select>
+    <resultMap type="com.example.spring20221017.domain.lecture.JavaBean15" id="supplierMap">
+        <id column="supplierId" property="id"></id>
+        <result column="supplierName" property="name"/>
+        <collection property="product" ofType="com.example.spring20221017.domain.lecture.JavaBean14">
+            <id column="productId" property="id"></id>
+            <result column="productName" property="name"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+
+</mapper>

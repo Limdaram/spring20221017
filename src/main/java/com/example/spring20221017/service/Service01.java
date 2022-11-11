@@ -1,7 +1,7 @@
 package com.example.spring20221017.service;
 
-import com.example.spring20221017.domain.JavaBean18;
-import com.example.spring20221017.mapper.Mapper11;
+import com.example.spring20221017.domain.lecture.JavaBean18;
+import com.example.spring20221017.mapper.lecture.Mapper11;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
