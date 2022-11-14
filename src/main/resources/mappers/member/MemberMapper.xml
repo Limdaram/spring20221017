@@ -42,4 +42,14 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="selectByEmail" resultType="com.example.spring20221017.domain.member.MemberDto">
+        SELECT
+        id,
+        password,
+        email,
+        inserted
+        FROM Member
+        WHERE email = #{email}
+    </select>
+
 </mapper>

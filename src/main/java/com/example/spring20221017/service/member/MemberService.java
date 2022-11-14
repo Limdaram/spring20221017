@@ -25,6 +25,10 @@ public class MemberService {
         return mapper.selectById(id);
     }
 
+    public MemberDto getByEmail(String email) {
+        return mapper.selectByEmail(email);
+    }
+
     public int modify(MemberDto member) {
         int cnt = 0;
         try {
